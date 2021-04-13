@@ -4,7 +4,7 @@
 import csv
 import json
 
-from .models import NearEarthObject
+from .models import NearEarthObject, CloseApproach
 
 def load_neos(path_neo):
     """ Read near-Earth object information.
@@ -24,3 +24,24 @@ def load_neos(path_neo):
             neos.append(neo)
 
     return neos
+
+def load_approaches(path_cad):
+    """ Read close approach data.
+
+    Arguments:
+    :path_cat {str} path to JSON file containing close-approach data.
+
+    Returns:
+
+    """
+    capps = []
+
+    with open(path_cad, 'r') as f:
+        data = json.load(f)
+
+    fields = data['fields']
+    for capp in data['data']:
+        capp_info = {k: v for k, v in zip(fields, capp)}
+        capps.append(CloseApproach(capp_info))
+    
+    return capps
