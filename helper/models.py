@@ -1,12 +1,16 @@
 """ Represent models for near-Earth objects and their close approaches.
 """
 
+from .helpers import cd_to_datetime, datetime_to_str
+
 class NearEarthObject:
     """ Represents Near-Earth Object (NEO).
 
     """
     def __init__(self, info_dict) -> None:
-        """
+        """ Initialize a near-Earth object (NEO).
+
+        :info_dict {dict}
         """
         name = info_dict['name']
         d = info_dict['diameter']
@@ -22,4 +26,28 @@ class NearEarthObject:
             f'NearEarthObject(name={self.name!r}, '
             f'designation={self.designation!r}, diameter={self.diameter:.3f}, '
             f'hazardous={self.hazardous!r})'
+        )
+
+class CloseApproach:
+    """ Represents close approach to Earth by an NEO.
+
+    """
+    def __init__(self, info_dict) -> None:
+        """ Initialize a new `CloseApproach`.
+        
+        :info_dict {dict} contains information of a close approach.
+        """
+        self.designation = info_dict['des']
+        self.time = cd_to_datetime(info_dict['cd'].strip())
+        self.distance = float(info_dict['dist'])
+        self.velocity = float(info_dict['v_rel'])
+    
+    def __repr__(self) -> str:
+        """ Return a computer-readable string representation of
+        `CloseApproach` object.
+        """
+        return (
+            f'CloseApproach(designation={self.designation!r}, '
+            f'time={datetime_to_str(self.time)!r}, '
+            f'distance={self.distance:.2f}, velocity={self.velocity:.2f})'
         )
