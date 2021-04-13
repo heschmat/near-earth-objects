@@ -4,7 +4,7 @@
 import csv
 import json
 
-from models import NearEarthObject
+from .models import NearEarthObject
 
 def load_neos(path_neo):
     """ Read near-Earth object information.
