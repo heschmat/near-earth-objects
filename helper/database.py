@@ -24,3 +24,26 @@ class NEODatabase:
             # Append the current `CloseApproach` to the list of
             # close-approaches associated with the `NEO`.
             neo.close_approaches.append(app)
+
+    def get_neo_by_name(self, neo_name):
+        """ Return NEO by its name. If no match is found, return `None`.
+
+        Arguments:
+        :neo_name {str}
+
+        Returns:
+        : {NearEarthObject} NEO that corresponds to the asked name.
+        """
+        return self._names_neo.get(neo_name, None)
+
+    def get_neo_by_designation(self, neo_desig):
+        """ Return NEO by its primary designation.
+        If no match is found, return `None`.
+
+        Arguments:
+        :neo_desig {str}
+
+        Returns:
+        : {NearEarthObject} NEO that corresponds to the asked designation.
+        """
+        return self._designations_neo.get(neo_desig, None)
