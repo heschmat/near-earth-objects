@@ -19,6 +19,10 @@ class NearEarthObject:
         self.designation = info_dict['pdes']
         self.diameter = float('nan') if len(d) == 0 else float(d)
         self.hazardous = True if info_dict['pha'] == 'Y' else False
+
+        # Every NEO is connected to a set of `CloseApproach` objects.
+        # Initialize as empty list. Gets populated when calling `NEODatabase`.
+        self.close_approaches = []
     
     def __repr__(self):
         """Return a computer-readable string representation of the NEO object."""
@@ -41,6 +45,10 @@ class CloseApproach:
         self.time = cd_to_datetime(info_dict['cd'].strip())
         self.distance = float(info_dict['dist'])
         self.velocity = float(info_dict['v_rel'])
+
+        # Every `CloseApproach` is associated with a `NEO`.
+        # Gets populated when calling `NEODatabase`.
+        self.neo = None
     
     def __repr__(self) -> str:
         """ Return a computer-readable string representation of
